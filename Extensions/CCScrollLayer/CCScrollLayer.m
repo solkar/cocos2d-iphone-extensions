@@ -237,6 +237,7 @@ enum
 
 - (void) moveToPageEnded
 {
+    CCLOG(@"prevScreen:%i currentScreen:%i",prevScreen_,currentScreen_);
     if (prevScreen_ != currentScreen_)
     {
         if ([self.delegate respondsToSelector:@selector(scrollLayer:scrolledToPageNumber:)])
@@ -276,6 +277,7 @@ enum
 	id changePage = [CCMoveTo actionWithDuration:0.3 position: [self positionForPageWithNumber: page]];
 	changePage = [CCSequence actions: changePage,[CCCallFunc actionWithTarget:self selector:@selector(moveToPageEnded)], nil];
     [self runAction:changePage];
+    prevScreen_ = currentScreen_;
     currentScreen_ = page;
 
 }
